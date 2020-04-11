@@ -38,19 +38,11 @@ jobs:
       run: git clone https://github.com/cjybyjk/OTA-maker.git 
   
     - name: Download the old ROM
-      uses: carlosperate/download-file-action@v1.0.2
-      with:
-         file-url: $OLD_ROM_URL
-         file-name: OLD_ROM.zip
-         location:  ~/roms/    
+      run: wget $OLD_ROM_URL -O  ~/roms/
    
     - name: Download the new ROM
-      uses: carlosperate/download-file-action@v1.0.2
-      with:
-         file-url: $NEW_ROM_URL
-         file-name: NEW_ROM.zip
-         location:  ~/roms/
-  
+      run: wget $NEW_ROM_URL -O  ~/roms/
+    
     - name: make OTA ROM
       run: |
        cd OTA-maker
