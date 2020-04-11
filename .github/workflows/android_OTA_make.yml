@@ -28,7 +28,8 @@ jobs:
     
     - name: Initialization environment
       run: |
-        mkdir roms
+        mkdir old-rom
+        mkdir new-rom
         mkdir final-rom
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install python3.8 python3-pip python-pip
@@ -38,15 +39,16 @@ jobs:
       run: git clone https://github.com/cjybyjk/OTA-maker.git 
   
     - name: Download the old ROM
-      run: wget $OLD_ROM_URL -O  ~/roms/OLD_ROM.zip
+      run: wget -P  ~/old-rom/ $OLD_ROM_URL 
+                mv * OLD_ROM.zip 
    
     - name: Download the new ROM
-      run: wget $NEW_ROM_URL -O  ~/roms/NEW_ROM.zip
-    
+      run: wget -P  ~/new-rom/ $NEW_ROM_URL 
+                  mv * OLD_ROM.zip 
     - name: make OTA ROM
       run: |
        cd OTA-maker
-       python makeota.py ～/roms/OLD_ROM.zip  ～/roms/NEW_ROM.zip ~/final_rom
+       python makeota.py ～/old-rom/OLD_ROM.zip  ～/new-rom/NEW_ROM.zip ~/final_rom
    
     - name: Upload the OTA Rom
       uses: actions/upload-artifact@v1.0.0
