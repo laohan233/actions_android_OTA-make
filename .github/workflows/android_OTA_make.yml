@@ -38,10 +38,10 @@ jobs:
       run: git clone https://github.com/cjybyjk/OTA-maker.git 
   
     - name: Download the old ROM
-      run: wget $OLD_ROM_URL -O  ~/roms/
+      run: wget $OLD_ROM_URL -O  ~/roms/OLD_ROM.zip
    
     - name: Download the new ROM
-      run: wget $NEW_ROM_URL -O  ~/roms/
+      run: wget $NEW_ROM_URL -O  ~/roms/NEW_ROM.zip
     
     - name: make OTA ROM
       run: |
