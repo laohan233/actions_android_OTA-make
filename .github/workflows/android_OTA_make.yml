@@ -41,17 +41,15 @@ jobs:
     - name: Download the old ROM
       run: |
         wget -P  ~/old-rom/ $OLD_ROM_URL 
-        mv * OLD_ROM.zip 
    
     - name: Download the new ROM
       run: |
         wget -P  ~/new-rom/ $NEW_ROM_URL 
-        mv * OLD_ROM.zip 
     
     - name: make OTA ROM
       run: |
        cd OTA-maker
-       python makeota.py ～/old-rom/OLD_ROM.zip  ～/new-rom/NEW_ROM.zip ~/final_rom
+       python makeota.py ～/old-rom/*.zip  ～/new-rom/*.zip ~/final_rom
    
     - name: Upload the OTA Rom
       uses: actions/upload-artifact@v1.0.0
