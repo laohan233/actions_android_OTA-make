@@ -29,9 +29,11 @@ jobs:
     - name: Initialization environment
       run: |
         mkdir roms
+        mkdir final-rom
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install python3.8
-     
+        sudo -E apt-get -qq install python3.8 python3-pip python-pip
+        pip install bsdiff4
+        
     - name: Clone the tools source code
       run: git clone https://github.com/cjybyjk/OTA-maker.git 
   
@@ -40,6 +42,25 @@ jobs:
       with:
          file-url: $OLD_ROM_URL
          file-name: OLD_ROM.zip
-         location:  roms    
-       
+         location:  ~/roms/    
+   
+    - name: Download the new ROM
+      uses: carlosperate/download-file-action@v1.0.2
+      with:
+         file-url: $NEW_ROM_URL
+         file-name: NEW_ROM.zip
+         location:  ~/roms/
+  
+    - name: make OTA ROM
+      run: |
+       cd OTA-maker
+       python makeota.py ～/roms/OLD_ROM.zip  ～/roms/NEW_ROM.zip ~/final_rom
+   
+    - name: Upload the OTA Rom
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: OTA_ROM
+        path: ~/final_rom/*
+      
+     
     
