@@ -52,7 +52,7 @@ jobs:
     - name: make OTA ROM
       run: |
        cd OTA-maker
-       python3 makeota.py ～/old-rom/old-rom.zip  ～/new-rom/new-rom.zip ~/final_rom
+       python3 makeota.py ~/old-rom/old-rom.zip  ~/new-rom/new-rom.zip ~/final_rom
    
     - name: Upload the OTA Rom
       uses: actions/upload-artifact@v1.0.0
