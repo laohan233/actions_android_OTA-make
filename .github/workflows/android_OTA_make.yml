@@ -41,13 +41,13 @@ jobs:
   
     - name: Download the old ROM
       run: |
-        wget -P  ~/old-rom/ $OLD_ROM_URL
-        mv * ~/old-rom/old-rom.zip 
+       cd old-rom
+       curl -o old_rom.zip $OLD_ROM_URL
    
     - name: Download the new ROM
       run: |
-        wget -P  ~/new-rom/ $NEW_ROM_URL 
-        mv  * ~/new-rom/new-rom.zip
+       cd new-rom
+       curl -o new_rom.zip $NEW_ROM_URL
     
     - name: make OTA ROM
       run: |
