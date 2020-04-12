@@ -33,7 +33,7 @@ jobs:
         mkdir final-rom
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install python3.8 python3-pip python-pip
-        pip install bsdiff4
+        pip3 install bsdiff4
         
     - name: Clone the tools source code
       run: git clone https://github.com/cjybyjk/OTA-maker.git 
@@ -49,7 +49,7 @@ jobs:
     - name: make OTA ROM
       run: |
        cd OTA-maker
-       python makeota.py ～/old-rom/*.zip  ～/new-rom/*.zip ~/final_rom
+       python3 makeota.py ～/old-rom/*.zip  ～/new-rom/*.zip ~/final_rom
    
     - name: Upload the OTA Rom
       uses: actions/upload-artifact@v1.0.0
