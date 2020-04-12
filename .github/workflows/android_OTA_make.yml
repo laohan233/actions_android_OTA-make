@@ -42,12 +42,12 @@ jobs:
     - name: Download the old ROM
       run: |
         wget -P  ~/old-rom/ $OLD_ROM_URL
-        mv * old-rom.zip 
+        mv * ~/old-rom/old-rom.zip 
    
     - name: Download the new ROM
       run: |
         wget -P  ~/new-rom/ $NEW_ROM_URL 
-        mv  * new-rom.zip
+        mv  * ~/new-rom/new-rom.zip
     
     - name: make OTA ROM
       run: |
