@@ -32,7 +32,8 @@ jobs:
         mkdir new-rom
         mkdir final-rom
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install python3 python3-pip python-pip setuptools
+        sudo -E apt-get -qq install python3 python3-pip python-pip
+        pip3 install setuptools
         pip3 install bsdiff4
         
     - name: Clone the tools source code
