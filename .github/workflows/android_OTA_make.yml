@@ -42,12 +42,12 @@ jobs:
     - name: Download the old ROM
       run: |
        cd old-rom
-       curl -o old_rom.zip $OLD_ROM_URL
+       curl -O old_rom.zip $OLD_ROM_URL
    
     - name: Download the new ROM
       run: |
        cd new-rom
-       curl -o new_rom.zip $NEW_ROM_URL
+       curl -O new_rom.zip $NEW_ROM_URL
     
     - name: make OTA ROM
       run: |
