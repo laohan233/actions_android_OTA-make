@@ -23,47 +23,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
     
     - name: Initialization environment and Clean Up Disk Space
       run: |
+        cd ~
         mkdir old-rom
         mkdir new-rom
         mkdir final-rom
+        mkdir final
         docker rmi `docker images -q`
         sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
         sudo -E apt-get update
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean 
-        sudo -E apt-get install python3 python3-pip python-pip
-        pip3 install setuptools
+        sudo -E apt-get install python3 python3-pip
+        sudo -E apt-get install python3-bsdiff4
         pip3 install bsdiff4
         
     - name: Clone the tools source code
-      run: git clone https://github.com/cjybyjk/OTA-maker.git 
+      run: |
+       cd ~
+       git clone https://github.com/cjybyjk/OTA-maker.git 
   
     - name: Download the old ROM
       run: |
+       cd ~
        cd old-rom
        curl -O old_rom.zip $OLD_ROM_URL
    
     - name: Download the new ROM
       run: |
+       cd ~
        cd new-rom
        curl -O new_rom.zip $NEW_ROM_URL
     
     - name: make OTA ROM
       run: |
+       cd ~
        cd OTA-maker
-       python3 makeota.py ~/work/actions_android_OTA-make/actions_android_OTA-make/old-rom/old-rom.zip  ~/work/actions_android_OTA-make/actions_android_OTA-make/new-rom/new-rom.zip final_rom
+       python3 makeota.py ~/old-rom/old-rom.zip  ~/new-rom/new-rom.zip ~/final_rom
    
     - name: Zip GSI  
       run: |
-          zip -r OTA.zip final_rom
+          zip -r ~/final/OTA.zip ~/final_rom
     
-    - name: Upload the OTA Rom to Bitsend
+    - name: Upload the OTA ROM to WeTransfer
       run: |
+        cd ~
         curl -sL https://git.io/file-transfer | sh
-        ./transfer bit OTA.zip
+        ./transfer wet ~/final/OTA.zip
