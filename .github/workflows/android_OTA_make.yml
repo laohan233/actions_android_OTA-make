@@ -1,15 +1,6 @@
 name: android_OTA_make
 
 on:
-#  release:
-#    types: [published]
-#  push:
-#    branches:
-#      - master
-#    paths:
-#      - '.config'
-#  schedule:
-#    - cron: 0 8 * * 5
   watch:
     types: [started]
     
@@ -24,22 +15,25 @@ jobs:
 
     steps:
     
-    - name: Initialization environment and Clean Up Disk Space
+    - name: Initialization environment 
       run: |
         cd ~
         mkdir old-rom
         mkdir new-rom
         mkdir final-rom
         mkdir final
+        sudo -E apt-get update
+        sudo -E apt-get install python3 python3-pip
+        sudo -E apt-get install python-bsdiff4
+        pip3 install bsdiff4
+        
+    - name: Clean Up Disk Space
+      run: |
         docker rmi `docker images -q`
         sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-        sudo -E apt-get update
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean 
-        sudo -E apt-get install python3 python3-pip
-        sudo -E apt-get install python3-bsdiff4
-        pip3 install bsdiff4
         
     - name: Clone the tools source code
       run: |
