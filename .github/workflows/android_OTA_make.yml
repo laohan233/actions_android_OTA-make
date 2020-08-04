@@ -24,7 +24,6 @@ jobs:
         mkdir final
         sudo -E apt-get update
         sudo -E apt-get install python3 python3-pip
-        sudo -E apt-get install python-bsdiff4
         pip3 install bsdiff4
         
     - name: Clean Up Disk Space
