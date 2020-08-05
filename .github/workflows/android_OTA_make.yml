@@ -5,8 +5,8 @@ on:
     types: [started]
     
 env:
-  OLD_ROM_URL: https://dlsvr04.asus.com.cn/pub/ASUS/ZenFone/ZS620KL/UL-Z01R-WW-100.10.107.87-user.zip
-  NEW_ROM_URL: https://dlsvr04.asus.com.cn/pub/ASUS/ZenFone/ZS620KL/UL-Z01R-WW-100.10.107.92-user.zip
+  OLD_ROM_URL: https://hugeota.d.miui.com/20.7.30/miui_RAPHAEL_20.7.30_2061f26e97_10.0.zip
+  NEW_ROM_URL: https://hugeota.d.miui.com/20.8.4/miui_RAPHAEL_20.8.4_22b148a8c9_10.0.zip
   TZ: Asia/Shanghai
 
 jobs:
@@ -14,10 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Python Setuptools
-      run: |
-        cd ~
-  
   
     - name: Initialization environment 
       run: |
@@ -48,13 +44,13 @@ jobs:
       run: |
        cd ~
        cd old-rom
-       wget -O old_rom.zip $OLD_ROM_URL
+       wget -O old-rom.zip $OLD_ROM_URL
    
     - name: Download the new ROM
       run: |
        cd ~
        cd new-rom
-       wget -O new_rom.zip $NEW_ROM_URL
+       wget -O new-rom.zip $NEW_ROM_URL
     
     - name: make OTA ROM
       run: |
