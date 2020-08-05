@@ -5,8 +5,8 @@ on:
     types: [started]
     
 env:
-  OLD_ROM_URL: https://bigota.d.miui.com/V11.0.2.0.PCMCNXM/miui_PINE_V11.0.2.0.PCMCNXM_fb68c600ed_9.0.zip
-  NEW_ROM_URL: https://bigota.d.miui.com/V11.0.5.0.PCMCNXM/miui_PINE_V11.0.5.0.PCMCNXM_b3581f0e0c_9.0.zip
+  OLD_ROM_URL: https://dlsvr04.asus.com.cn/pub/ASUS/ZenFone/ZS620KL/UL-Z01R-WW-100.10.107.87-user.zip
+  NEW_ROM_URL: https://dlsvr04.asus.com.cn/pub/ASUS/ZenFone/ZS620KL/UL-Z01R-WW-100.10.107.92-user.zip
   TZ: Asia/Shanghai
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
         mkdir final-rom
         mkdir final
         sudo -E apt-get update
-        sudo -E apt-get install python python-pip python3 python3-pip
+        sudo -E apt-get install wget python python-pip python3 python3-pip
         pip3 install setuptools
         pip3 install bsdiff4
         
@@ -48,13 +48,13 @@ jobs:
       run: |
        cd ~
        cd old-rom
-       curl -O old_rom.zip $OLD_ROM_URL
+       wget -O old_rom.zip $OLD_ROM_URL
    
     - name: Download the new ROM
       run: |
        cd ~
        cd new-rom
-       curl -O new_rom.zip $NEW_ROM_URL
+       wget -O new_rom.zip $NEW_ROM_URL
     
     - name: make OTA ROM
       run: |
@@ -62,7 +62,7 @@ jobs:
        cd OTA-maker
        python3 makeota.py ~/old-rom/old-rom.zip  ~/new-rom/new-rom.zip ~/final_rom
    
-    - name: Zip GSI  
+    - name: Zip OTA ROM
       run: |
           zip -r ~/final/OTA.zip ~/final_rom
     
